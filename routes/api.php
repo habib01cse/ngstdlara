@@ -36,3 +36,4 @@ Route::any('products/add', 'ProductController@add');
 Route::any('products/update', 'ProductController@update');
 Route::any('products/delete', 'ProductController@delete');
 Route::any('products/show', 'ProductController@show');
+Route::any('products/get-products', 'ProductController@getProducts');

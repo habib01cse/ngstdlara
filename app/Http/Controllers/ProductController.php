@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Product;
+use DB;
 
 class ProductController extends Controller
 {
@@ -112,6 +113,27 @@ class ProductController extends Controller
 
         return Response::json(['products'=>$products]);
 
+    }
+
+    public static function getProducts(Request $request){
+        //$products = 
+        //dd($request);
+        $limit = $request->limit;
+        $skip = $request->skip;
+        $age = array("limit"=>$limit, "skip"=>$skip, "Joe"=>"43");
+
+        $data = DB::table('products')->skip($skip)->limit($limit)->get();
+        $total =  DB::table('products')->get()->count();
+        // session(['key' => $request->keywords]);
+        // $products = Product::where(function($q){
+        //     $value = session('key');
+        //     $q->where('products.id', 'LIKE', '%'.$value.'%')
+        //     ->orwhere('products.name', 'LIKE', '%'.$value.'%')
+        //     ->orwhere('products.category', 'LIKE', '%'.$value.'%')
+        //     ->orwhere('products.price', 'LIKE', '%'.$value.'%');
+        // })->get();
+
+        return Response::json(['products'=>$data, 'total' => $total]);
     }
 
 
